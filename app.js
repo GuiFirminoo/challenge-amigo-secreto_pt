@@ -8,8 +8,13 @@ function adicionarAmigo() { //Validar que o campo de entrada não esteja vazio
     if (!inputAmigo.value) {
         alert("Necessário adicionar pelo menos um nome na lista!");
         return;
-    } 
-// Após validação, realizar a adição do amigo informado
+    }
+//Validar que o nome não esteja duplicado
+ if(listaAmigos.includes(inputAmigo.value)){
+    alert(`"O nome ${inputAmigo.value} já está na lista, por favor adicione outro nome."`)
+    return;
+   }
+// Após validações, realizar a adição do amigo informado
     listaAmigos.push(inputAmigo.value);
     ulListaAmigos.innerHTML += `<li>${inputAmigo.value}</li>`;
 
@@ -22,5 +27,10 @@ function sortearAmigo() {
     if (listaAmigos.length === 0) {
     alert("Não há amigos para o sorteio! Adicione pelo menos um nome para o sorteio.");
     return
-   } 
-}
+   }
+
+   const nomeRandom = Math.floor(Math.random() * amigos.length);
+   const amigoSorteado = listaAmigos[nomeRandom];
+   ulResultado.innerHTML = `<li>"O amigo secreto é: "${amigoSorteado} !"</li>`;
+
+   }
