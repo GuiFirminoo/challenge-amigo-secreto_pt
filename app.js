@@ -1,27 +1,17 @@
-let amigos = [];
+let listaAmigos = [];
+const inputAmigo = document.getElementById("amigo");
+const ulListaAmigos = document.getElementById("listaAmigos");
+const ulResultado = document.getElementbyID("resultado");
 
-function adicionarAmigos() {
-    let amigoEscolhido = document.querySelector("input").value;
-    if (amigoEscolhido === "") {
-        alert("Digite um nome para adicionar ao sorteio");
-    } else {
-        amigos.push(amigoEscolhido);
-        limparCampo();
-        mostrarAmigosNaLista();
-    }
-}
+function adicionarAmigo() {
+    if (!inputAmigo.value) {
+        alert("Necessário adicionar pelo menos um nome na lista!");
+        return;
+    } 
 
-function limparCampo() {
-    amigoEscolhido = document.querySelector("input");
-    amigoEscolhido.value = "";
-}
+    listaAmigos.push(inputAmigo.value);
+    ulListaAmigos.innerHTML += `<li>${inputAmigo.value}</li>`;
 
-function sortearAmigos() {
-    paragrafoAmigos = document.getElementById("listaAmigos");
-    paragrafoAmigos.innerHTML = "";
-    for (let i = 0; i < amigos.length; i++) {
-       let item = document.createElement("li");
-       item.textContent = amigos[i];
-       paragrafoAmigos.appendChild(item);
-    }
+    // Limpeza do campo de entrada
+    inputAmigo.value = "";
 }
