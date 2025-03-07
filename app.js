@@ -1,7 +1,7 @@
 let listaAmigos = [];
 const inputAmigo = document.getElementById("amigo");
 const ulListaAmigos = document.getElementById("listaAmigos");
-const ulResultado = document.getElementbyID("resultado");
+const ulResultado = document.getElementById("resultado");
 
 //Função para ADICIONAR amigos
 function adicionarAmigo() { //Validar que o campo de entrada não esteja vazio
@@ -11,7 +11,7 @@ function adicionarAmigo() { //Validar que o campo de entrada não esteja vazio
     }
 //Validar que o nome não esteja duplicado
  if(listaAmigos.includes(inputAmigo.value)){
-    alert(`"O nome ${inputAmigo.value} já está na lista, por favor adicione outro nome."`)
+    alert(`"O nome "${inputAmigo.value}" já está na lista, por favor adicione outro nome."`)
     return;
    }
 // Após validações, realizar a adição do amigo informado
@@ -23,14 +23,14 @@ function adicionarAmigo() { //Validar que o campo de entrada não esteja vazio
 }
 //Fim da função para ADICIONAR amigos
 //Inicio da função para SORTEAR os amigos
-function sortearAmigo() {
+function sortearAmigo() { //Validar que a lista não esteja vazia
     if (listaAmigos.length === 0) {
     alert("Não há amigos para o sorteio! Adicione pelo menos um nome para o sorteio.");
     return
    }
-
-   const nomeRandom = Math.floor(Math.random() * amigos.length);
+// Após validações, realizar o sorteio
+   const nomeRandom = Math.floor(Math.random() * listaAmigos.length);
    const amigoSorteado = listaAmigos[nomeRandom];
-   ulResultado.innerHTML = `<li>"O amigo secreto é: "${amigoSorteado} !"</li>`;
+   ulResultado.innerHTML = `<li>"O amigo sorteado é: "${amigoSorteado} !"</li>`;
 
-   }
+}
