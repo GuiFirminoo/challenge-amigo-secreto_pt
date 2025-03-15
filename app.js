@@ -1,36 +1,55 @@
-let listaAmigos = [];
-const inputAmigo = document.getElementById("amigo");
-const ulListaAmigos = document.getElementById("listaAmigos");
-const ulResultado = document.getElementById("resultado");
+let amigos = [];
 
 //Função para ADICIONAR amigos
-function adicionarAmigo() { //Validar que o campo de entrada não esteja vazio
-    if (!inputAmigo.value) {
+function adicionarAmigo() {
+    let inputAmigo = document.getElementById("amigo");
+    let nomeAmigo = inputAmigo.value;
+    if (!nomeAmigo) {//Validar que o campo de entrada não esteja vazio
         alert("Necessário adicionar pelo menos um nome na lista!");
-        return;
+        return;//O "return" é utilizado para interromper a execução do código e evitar possiveis bugs
     }
+
 //Validar que o nome não esteja duplicado
- if(listaAmigos.includes(inputAmigo.value)){
-    alert(`"O nome "${inputAmigo.value}" já está na lista, por favor adicione outro nome."`)
+ if(amigos.includes(nomeAmigo)) {
+    alert(`O nome "${nomeAmigo}" já está na lista, por favor adicione outro nome.`)
     return;
    }
+
 // Após validações, realizar a adição do amigo informado
-    listaAmigos.push(inputAmigo.value);
-    ulListaAmigos.innerHTML += `<li>${inputAmigo.value}</li>`;
+    amigos.push(nomeAmigo);
 
 // Limpeza do campo de entrada após inserção de amigo na lista
     inputAmigo.value = "";
+    inputAmigo.focus();//O "focus" é utilizado para manter o cursor no campo de entrada após a inserção de um amigo
+    atualizarLista();
 }
 //Fim da função para ADICIONAR amigos
+
+//Inicio da função de Atualizar a Lista de Amigos
+function atualizarLista() {
+    let listaAmigos = document.getElementById("listaAmigos");
+    listaAmigos.innerHTML = "";
+
+    for (let i = 0; i < amigos.length; i++) {
+        let item = document.createElement("li");
+        item.textContent = amigos[i];
+        listaAmigos.appendChild(item);
+    }
+}
+//Fim da função de Atualizar a Lista de Amigos
+
 //Inicio da função para SORTEAR os amigos
-function sortearAmigo() { //Validar que a lista não esteja vazia
-    if (listaAmigos.length === 0) {
+
+function sortearAmigo() {
+    if (amigos.length === 0) { //Validar que a lista não esteja vazia
     alert("Não há amigos para o sorteio! Adicione pelo menos um nome para o sorteio.");
-    return
+    return;
    }
 // Após validações, realizar o sorteio
-   const nomeRandom = Math.floor(Math.random() * listaAmigos.length);
-   const amigoSorteado = listaAmigos[nomeRandom];
-   ulResultado.innerHTML = `<li>"O amigo sorteado é: "${amigoSorteado} !"</li>`;
-
+   let sorteado = amigos[Math.floor(Math.random() * amigos.length)];
+   let resultado = document.getElementById("resultado");
+   resultado.innerHTML = `<li>"O amigo sorteado foi: "${sorteado} !"</li>`;
+   let limparLista = document.getElementById("listaAmigos");//Limpar a lista de amigos após o sorteio
+   limparLista.innerHTML = "";
+   amigos = [];//Limpar o array de amigos após o sorteio
 }
